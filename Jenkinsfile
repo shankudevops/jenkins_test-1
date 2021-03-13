@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'linux' }
+    agent { label 'windows' }
     tools {
         // Install the Maven version configured as "M3" and add it to the path.
         maven "MVN3"
@@ -11,7 +11,7 @@ pipeline {
                 // Get some code from a GitHub repository
                 git credentialsId: 'github', url: 'git@github.com:shankudevops/jenkins_test-1.git'
                 // Run Maven on a Unix agent.
-                sh "mvn -Dmaven.test.failure.ignore=true -f api-gateway clean package"
+                bat "mvn -Dmaven.test.failure.ignore=true -f api-gateway clean package"
                 // To run Maven on a Windows agent, use
                 // bat "mvn -Dmaven.test.failure.ignore=true clean package"
             }
