@@ -1,4 +1,3 @@
-properties([pipelineTriggers([githubPush()])])
 pipeline {
 	agent any
 	
@@ -9,10 +8,17 @@ pipeline {
     }
 
     stages {
+	    stage('enable webhook'){
+	  	    steps {
+			    script { properties([pipelineTriggers([githubPush()])])
+				   }
+		    }
+	    }
+			    
         stage('Build') {
             steps {
                 // Get some code from a GitHub repository
-                git credentialsId: 'github', url: 'git@github.com:shankudevops/jenkins_test-1.git'
+                git credentialsId: 'github', url: 'git@github.com:sathishbob/jenkins_test.git'
 
                 // Run Maven on a Unix agent.
                 sh "mvn -Dmaven.test.failure.ignore=true -f api-gateway clean package"
